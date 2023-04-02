@@ -1,0 +1,103 @@
+[package]
+name = "mathru"
+version = "0.6.10"
+description = "Mathematics library written in Rust"
+authors = ["Matthias Eiholzer <matthias.eiholzer@gmail.com>"]
+exclude = ["literature/*", "tests/*", ".gitignore"]
+keywords = ["optimization", "statistics", "algebra", "matrix", "ode"]
+categories = ["mathematics", "science", "algorithms"]
+readme = "README.md"
+license = "MIT"
+homepage = "https://matthiaseiholzer.gitlab.io/mathru"
+repository = "https://gitlab.com/matthiaseiholzer/mathru"
+documentation = "https://docs.rs/crate/mathru/latest/"
+autobenches = false
+edition = "2021"
+
+[package.metadata.docs.rs]
+rustdoc-args = ["--html-in-header", "katex.html"]
+
+[lib]
+name = "mathru" 
+path = "src/lib.rs"
+
+[features]
+default = ["native"]
+native = []
+serde-serialize = ["serde"]
+openblas = ["lapack", "blas", "lapack-sys", "blas-sys", "lapack-src/openblas", "blas-src/openblas"]
+netlib = ["lapack", "blas", "lapack-sys", "blas-sys", "lapack-src/netlib", "blas-src/netlib"]
+accelerate = ["lapack", "blas", "lapack-sys", "blas-sys", "lapack-src/accelerate", "blas-src/accelerate"]
+intel-mkl = ["lapack", "blas", "lapack-sys", "blas-sys", "lapack-src/intel-mkl", "blas-src/intel-mkl"]
+
+# Conversion
+convert-mint = ["mint"]
+
+[profile.dev]
+opt-level = 0
+debug = true
+
+[profile.release]
+opt-level = 3
+debug = false
+lto = true
+
+[profile.test]
+opt-level = 0
+debug = true
+
+[profile.bench]
+opt-level = 3
+debug = false
+
+[dependencies]
+
+[dependencies.rand]
+version = "^0.8"
+
+[dependencies.serde]
+version =  "^1.0"
+features = ["derive"]
+optional = true
+
+[dependencies.lapack]
+version = "^0.19"
+optional = true
+
+[dependencies.lapack-sys]
+version = "^0.14"
+optional = true
+
+[dependencies.lapack-src]
+version = "^0.8"
+optional = true
+
+[dependencies.blas]
+version = "^0.22"
+optional = true
+
+[dependencies.blas-sys]
+version = "^0.7"
+optional = true
+
+[dependencies.blas-src]
+version = "^0.8"
+optional = true
+
+[dependencies.mint]
+version = "^0.5"
+optional = true
+
+[dev-dependencies.serde_json]
+version = "^1.0"
+
+[dev-dependencies.criterion]
+version = "0.3.5"
+
+[dev-dependencies.plotters]
+version = "^0.3"
+
+[[bench]]
+name = "benchmark"
+path = "benches/lib.rs"
+harness = false

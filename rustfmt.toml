@@ -1,0 +1,21 @@
+
+unstable_features = true
+edition = "2018"
+brace_style = "AlwaysNextLine"
+control_brace_style = "AlwaysNextLine"
+empty_item_single_line = false
+fn_params_layout = "Compressed"
+fn_single_line = false
+# rustfmt does not work correctly, when there is some ```math in the documentation
+format_code_in_doc_comments = false
+indent_style = "Block"
+newline_style = "Unix"
+reorder_impl_items = true
+use_field_init_shorthand = true
+use_try_shorthand = true
+version = "Two"
+wrap_comments = true
+where_single_line = true
+merge_imports = true
+force_multiline_blocks = true
+width_heuristics = "Max"
